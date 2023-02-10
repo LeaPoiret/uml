@@ -1,0 +1,103 @@
+Table Utilisateur	Propriété	Type	Description	
+	utilisateur_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	utilisateur_prenom	VARCHAR(50)	Prénom utilisateur	
+	utilisateur_nom	VARCHAR(50)	Nom utilisateur	
+	utilisateur_sexe	BOOLEAN	Sexe utilisateur	
+	utilisateur_role	VARCHAR(50)	Rôle utilisateur	
+	utilisateur_telephone	VARCHAR(50)	Téléphone	
+	utilisateur_mdp	VARCHAR(50)	Mot de passe utilisateur	
+	utilisateur_date_de_naissance	VARCHAR(50)	Date de naissance utilisateur	
+				
+Table Fournisseur_Constructeur	Propriété	Type	Description	
+	fournisseur_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	fournisseur_nom	VARCHAR(50)	Nom fournisseur	
+	fournisseur_mail	VARCHAR(50)	Mail fournisseur	
+	fournisseur_pays	VARCHAR(40)	Pays fournisseur	
+	fournisseur_ville	VARCHAR(40)	Ville fournisseur	
+	fournisseur_rue	VARCHAR(50)	Rue fourinisseur	
+	fournisseur_batiment	VARCHAR(50)	Batiment fournisseur	
+	fournisseur_appartement	VARCHAR(50)	Appartement fournisseur	
+	fournisseur_numero	VARCHAR(50)	Numéro fournisseur	
+	fournisseur_telephone	VARCHAR(40)	Téléphone fournisseur	
+				
+Table Promo	Propriété	Type	Description	
+	promo_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	promo_taux	VARCHAR(50)	Taux de la promotion	
+	promo_code	VARCHAR(50)	Code de la promotion	
+	promo_frais	DECIMAL(15,2)	Frais de la promotion	
+	promo_date_debut	DATETIME	Date de debut de la promotion	
+	promo_date_fin	INT	Date de fin de la promotion	
+	promo_montant	INT	Montant de la promotion	
+	promo_reduction_valeur	INT	Valeur réduction de la promotion	
+	promo_pourcentage_valeur	INT	Valeur pourcentage de la promotion	
+				
+Table Categorie	Propriété	Type	Description	
+	categorie_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	categorie_nom	VARCHAR(50)	Nom de la catégorie	
+	categorie_type	VARCHAR(50)	Type de la catégorie	
+				
+Table Adresse	Propriété	Type	Description	
+	adresse_id PK	VARCHAR(50)	ID PRIMARY KEY 	
+	adresse_1	VARCHAR(50)	Adresse n*1	
+	adresse_2	VARCHAR(50)	Adresse n*2	
+	adresse_3	VARCHAR(50)	Adresse n*3	
+	adresse_code_postal	VARCHAR(50)	Code Postal de l'adresse	
+	adresse_ville	VARCHAR(50)	Ville de l'adresse	
+	adresse_pays	VARCHAR(50)	Pays de l'adresse	
+	utilisateur_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Utilisateur)	
+				
+Table Commande	Propriété	Type	Description	
+	commande_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	commande_statut	VARCHAR(50)	Statut de la commande	
+	commande_moyen_reglement	VARCHAR(50)	Moyen de règlement de la commande	
+	commande_paye	BOOLEAN	Payement de la commande	
+	commande_facturation_date	DATETIME	Date de facturation de la commande	
+	commande_date	DATE	Date de la commande	
+	adresse_id FK	VARCHAR(50)	ID FOREIGN KEY (Table Adresse)	
+	utilisateur_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Utilisateur)	
+				
+				
+				
+Table Sous_Categorie	Propriété	Type	Description	
+	sous_categorie_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	sous_categorie_nom	VARCHAR(50)	Nom de la sous catégorie	
+	sous_categorie_type	VARCHAR(50)	Type de la sous catégorie	
+	categorie_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Categorie)	
+				
+Table Produit	Propriété	Type	Description	
+	produit_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	produit_nom	VARCHAR(50)	Nom du produit	
+	produit_en_stock	VARCHAR(50)	Produit en stock	
+	produit_description	VARCHAR(50)	Description du produit	
+	produit_image	VARCHAR(50)	Image du produit	
+	produit_actif	BOOLEAN	Produit statut	
+	produit_tva	VARCHAR(50)	TVA du produit	
+	sous_categorie_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Sous_Categorie)	
+	fournisseur_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Fournisseur)	
+				
+Table Detail_Commande	Propriété	Type	Description	
+	detail_commande_id PK	VARCHAR(50)	ID PRIMARY KEY	
+	detail_commande_nom_produit	VARCHAR(50)	Nom du produit	
+	detail_commande_qte_produit	VARCHAR(50)	Quantité produits	
+	detail_commande_prix_ht	DECIMAL (15,2)	Prix ht du produit	
+	detail_commande_ttc	DECIMAL (15,2)	TTC du produit	
+	produit_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Produit)	
+	commande_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Commande)	
+				
+Table Livraison	Propriété	Type	Description	
+	livraison_id PK	INT AUTO_INCREMENT	ID	
+	livraison_statut	BOOLEAN	Statut de la livraison	
+	livraison_date_depart	DATE	Date de départ de la livraison	
+	livraison_date_arrive	DATE	Date d'arrivé de la livraison	
+	commande_id FK	INT AUTO_INCREMENT	ID Commande FOREIGN KEY (table Commande)	
+				
+Table Livraison_Detail	Propriété	Type	Description	
+	livraison_detail_id PK	INT AUTO_INCREMENT	ID PRIMARY KEY	
+	livraison_detail_qte_produit	VARCHAR(50)	Quantité de produits livrés	
+	detail_commande_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Detail_Commande)	
+	livraison_id FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Livraison)	
+				
+Table Deduit	Propriété	Type	Description	
+	commande_id PK/FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Commande)	
+	promo_id PK/FK	INT AUTO_INCREMENT	ID FOREIGN KEY (Table Promo)	
+				
